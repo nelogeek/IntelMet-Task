@@ -1,0 +1,49 @@
+﻿@model List<(double Speed, double Distance)>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Measurement Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="graph"></div>
+
+    <script>
+        var speeds = @Html.Raw(Json.Serialize(ViewData["Speeds"]));
+        var distances = @Html.Raw(Json.Serialize(ViewData["Distances"]));
+
+        var data = [
+            {
+                x: distances,
+                y: speeds,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Speed vs Distance'
+            }
+        ];
+
+        var layout = {
+            title: 'Speed vs Distance',
+            xaxis: {
+                title: 'Distance',
+                titlefont: {
+                    family: 'Arial, sans-serif',
+                    size: 18,
+                    color: 'lightgrey'
+                }
+            },
+            yaxis: {
+                title: 'Speed',
+                titlefont: {
+                    family: 'Arial, sans-serif',
+                    size: 18,
+                    color: 'lightgrey'
+                }
+            }
+        };
+
+        Plotly.newPlot('graph', data, layout);
+    </script>
+</body>
+</html>
